@@ -1,0 +1,532 @@
+<!DOCTYPE html><!--[if lte IE 8 ]>
+<html class="lte-ie8" lang="en"><![endif]-->
+<!--[if IE 9 ]>
+<html class="ie9" lang="en"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="" lang="en"><!--<![endif]-->
+<head>
+    <meta charset="utf-8"/>
+    <title>MOT history API - Documentation</title>
+    <link rel="shortcut icon" href="public/assets/images/favicon.ico?0.22.1" type="image/x-icon"/>
+    <link rel="mask-icon" href="public/assets/images/gds/gov.uk_logotype_crown.svg?0.22.1" color="#0b0c0c">
+    <link rel="apple-touch-icon" sizes="180x180" href="public/assets/images/apple-touch-icon-180x180.png?0.22.1">
+    <link rel="apple-touch-icon" sizes="167x167" href="public/assets/images/apple-touch-icon-167x167.png?0.22.1">
+    <link rel="apple-touch-icon" sizes="152x152" href="public/assets/images/apple-touch-icon-152x152.png?0.22.1">
+    <link rel="apple-touch-icon" href="public/assets/images/apple-touch-icon.png?0.22.1">
+
+    <meta name="theme-color" content="#0b0c0c"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:image" content="public/assets/images/gds/opengraph-image.png?0.22.1">
+
+    <link rel="stylesheet" href="public/assets/stylesheets/styles.css">
+</head>
+<body class="moth">
+
+<!-- header bar -->
+<div id="global-header-bar"></div>
+
+<!-- main content -->
+<main id="content">
+    <p class="print-show"> MOT history API documentation<a href="./index.html"><span class="print-hide">GOV UK - MOT history API documentation</span></a>
+    </p>
+    <h1 class="heading-xlarge u-space-b15">MOT history API</h1>
+
+    <div class="grid-row">
+
+        <div class="column-two-thirds">
+
+            <h2 class="heading-medium">Overview</h2>
+
+            <p>The MOT history API gives authorised third-party organisations a way to access MOT test history
+                information for vehicles.</p>
+
+            <p>The information includes:</p>
+
+            <ul class="list-bullet u-space-b30">
+                <li>MOT test date</li>
+                <li>MOT expiry date</li>
+                <li>test result</li>
+                <li>mileage reading</li>
+                <li>MOT test number</li>
+                <li>reasons for failure and advisory notices</li>
+                <li>first MOT due date for new vehicles</li>
+                <li>vehicle ID</li>
+                <li>vehicle registration date</li>
+                <li>vehicle manufacturing date</li>
+                <li>cylinder capacity of the engine</li>
+            </ul>
+
+            <h2 class="heading-medium">Apply for API access</h2>
+
+            <p><a href="https://www.smartsurvey.co.uk/s/MOT_History_TradeAPI_Access_and_Support?" target="_blank"
+                  class="appendClientID">Complete an application form</a> giving details of your organisation and your
+                intended use of the API.</p>
+
+            <p>If your application is approved you will be given an API key that will let you access the MOT history
+                data.</p>
+
+            <h2 class="heading-medium">API endpoints</h2>
+
+            <p>You can use the API from 4 different endpoints:</p>
+
+            <ol class="list-number">
+                <li>
+                    <p>MOT test history for a single vehicle using a registration number</p>
+                    <p>Search for the MOT history using just the registration number of the vehicle. Use this method if
+                        you want the MOT history for a limited number of vehicles or want to check the latest
+                        information for a vehicle.</p>
+                </li>
+
+                <li>
+                    <p>MOT test history for all vehicles</p>
+                    <p>Use this method if you are interested in a large number of vehicles and want to keep an offline
+                        copy.</p>
+                </li>
+
+                <li>
+                    <p>MOT test history for all vehicles tested on a certain date</p>
+                    <p>Use this method to find out which vehicles have been tested on a particular date. You can also
+                        use this method to maintain the data that you have extracted using either of the other two
+                        methods above.</p>
+                </li>
+
+                <li>
+                    <p>MOT test history using a vehicle's unique identifier</p>
+                    <p>Search for the MOT history using the vehicle's unique identifier. Use this method if you want the
+                        MOT history of a vehicle that has changed its registration number.</p>
+                </li>
+            </ol>
+
+            <h2 class="heading-medium">Amount of use</h2>
+
+            <p>Depending on how much data you want to access, we recommend the following ways of using the API.</p>
+
+            <ol class="list-number">
+                <li>
+                    <p>Fewer than 150,000 requests a day</p>
+                    <p>Use endpoint 1 to get MOT test history data for individual vehicles when necessary.</p>
+                </li>
+                <li>
+                    <p>More than 150,000 requests a day and interested in up to 10 million vehicles</p>
+                    <p>Use endpoint 1 to get all the MOT history data that you want and use endpoint 3 to maintain the
+                        data. Store the data and use daily updates to maintain it, filtering out vehicles you are not
+                        interested in.</p>
+                </li>
+                <li>
+                    <p>Interested in more than 10 million vehicles and up to all vehicles</p>
+                    <p>Use endpoint 2 to get the MOT history data for all the vehicles and use endpoint 3 to maintain
+                        the data. Store the data and use daily updates to maintain it, filtering out vehicles you are
+                        not interested in.</p>
+                </li>
+            </ol>
+
+            <h2 class="heading-medium">Getting started</h2>
+
+            <p>All API interfaces are implemented as restful APIs and accessed over https. </p>
+
+            <p>To access API you will need an API key that uniquely identifies the source of the request. DVSA will give
+                you an API key if it approves your application.</p>
+
+            <p>You should keep your API key secure, as DVSA manages throttling and quotas at an API key level.</p>
+
+            <p>Each request must have the following mandatory fields in the header:</p>
+
+            <ul class="list-bullet u-space-b30">
+                <li>Accept: application/json+v6</li>
+                <li>x-api-key: &lt;your api key&gt;</li>
+            </ul>
+
+            <p>Content-type field confirms that the response type is in JSON format, and the x-api-key field serves your
+                API key to identify the source of the request. </p>
+
+            <h2 class="heading-medium">Technical resources</h2>
+
+            <p>Access the API at <a
+                    href="https://beta.check-mot.service.gov.uk/" target="_blank">https://beta.check-mot.service.gov.uk/</a></p>
+
+            <p>This root URL will change when the service moves from beta to live.</p>
+
+            <p>These 4 endpoints equate to the 4 methods of using the API:</p>
+
+            <ol class="list-number">
+                <li>
+                    <p class="responsive-code">/trade/vehicles/mot-tests?registration={registration}</p>
+                    <p>‘Registration’ is the vehicle registration number.</p>
+                </li>
+
+                <li>
+                    <p class="responsive-code">/trade/vehicles/mot-tests?page={page}</p>
+                    <p>‘Page’ starts at 0 and ends when you have more than 50,000 pages and 404 Not Found response is
+                        returned.</p>
+                </li>
+
+                <li>
+                    <p class="responsive-code">/trade/vehicles/mot-tests?date={date}&amp;page={page}</p>
+                    <p>‘Date’ is the date of MOT tests and ‘page’ is between 1 and 1440 inclusive.</p>
+                </li>
+
+                <li>
+                    <p class="responsive-code">/trade/vehicles/mot-tests?vehicleId={vehicleId}</p>
+                    <p>'vehicleId' is the unique vehicle ID for vehicles that have had an MOT test.</p>
+                </li>
+            </ol>
+
+            <p>All pages should be requested daily. Pages without MOT tests will return a 404 Not Found response.</p>
+
+            <h2 class="heading-medium">Examples</h2>
+
+            <p>These examples use the curl command to illustrate how to use the four different methods:</p>
+
+            <ul class="list-number">
+
+                <li>
+                    <p class="responsive-code">curl -H "Accept: application/json+v6" -H "x-api-key: &lt;your_api_key&gt;" \https://beta.check-mot.service.gov.uk/trade/vehicles/mot-tests\?registration=ZZ99ABC</p>
+                    <p class="text">To request the MOT test history for registration ZZ99ABC</p>
+                </li>
+
+                <li>
+                    <p class="responsive-code">curl -H "Accept: application/json+v6" -H "x-api-key: &lt;your_api_key&gt;" \https://beta.check-mot.service.gov.uk/trade/vehicles/mot-tests\?page=[0-58002]</p>
+                    <p class="small"> (as of 13th July 2017)</p>
+                    <p>To request a full extract of the database. The last page normally increments by 10 each day.</p>
+                </li>
+
+                <li>
+                    <p class="responsive-code">curl -H "Accept: application/json+v6" -H "x-api-key: &lt;your_api_key&gt;" \https://beta.check-mot.service.gov.uk/trade/vehicles/mot-tests\?date=20170310\&amp;page=[1-1440]</p>
+                    <p>To request MOT tests completed on 10 March 2017 from page 1 to 1440.</p>
+                    <p>Example</p>
+
+                    <ul class="list-bullet u-space-b30">
+                        <li>page 1 shows all tests completed on 10 March 2017 at the 10/03/2017 at 0:01am</li>
+                        <li>page 300 shows all tests completed on 10 March 2017 at 5am</li>
+                        <li>page 600 shows all tests completed on 10 March 2017 at 10am</li>
+                    </ul>
+
+                </li>
+
+                <li>
+                    <p class="responsive-code">curl -H "Accept: application/json+v6" -H "x-api-key: &lt;your_api_key&gt;" \https://beta.check-mot.service.gov.uk/trade/vehicles/mot-tests\?vehicleId=4Tq319nVKLz+25IRaUo79w== </p>
+                    <p>To request the MOT test history for a vehicle with the ID '4Tq319nVKLz+25IRaUo79w=='.</p>
+                </li>
+
+            </ul>
+
+            <p>Each request returns a JSON document with a collection of vehicles, and each vehicle contains the basic
+                vehicle details and all its past MOT test results. </p>
+
+            <h2 class="heading-medium">Reason for rejection types and dangerous defects</h2>
+
+            <p>The <a href="https://www.gov.uk/government/news/mot-changes-20-may-2018" target="_blank">MOT rules changed on the 20 May
+                2018</a>. This included the way that defects are categorised.</p>
+            <p>Before 20 May 2018, indicating where a defect was dangerous was an objective and manual process. The
+                ‘dangerous’ property indicates where a defect has been manually marked as dangerous. From 20 May 2018,
+                defect severity is automatically categorised. The RFR property ‘type’ returns the specific defect
+                severity.</p>
+
+            <h2 class="heading-medium">Example response</h2>
+
+            <div class="responsive-code">[
+                {
+                "registration": "ZZ99ABC",
+                "make": "FORD",
+                "model": "FOCUS",
+                "firstUsedDate": "2010.11.13",
+                "fuelType": "Petrol",
+                "primaryColour": "Yellow",
+                "vehicleId": "4Tq319nVKLz+25IRaUo79w==",
+                "registrationDate": "2010.11.13",
+                "manufactureDate": "2010.11.13",
+                "engineSize": "1800",
+                "motTests":[
+                {
+                "completedDate": "2013.11.03 09:33:08",
+                "testResult": "PASSED",
+                "expiryDate": "2014.11.02",
+                "odometerValue": "47125",
+                "odometerUnit": "mi",
+                "odometerResultType": "READ",
+                "motTestNumber": "914655760009",
+                "rfrAndComments": []
+                },
+                {
+                "completedDate": "2013.11.01 11:28:34",
+                "testResult": "FAILED",
+                "odometerValue": "47118",
+                "odometerUnit": "mi",
+                "odometerResultType": "READ",
+                "motTestNumber": "841470560098",
+                "rfrAndComments":[
+                {
+                "text": "Front brake disc excessively pitted (3.5.1h)",
+                "type": "FAIL",
+                "dangerous": true
+                },
+                {
+                "text": "Nearside Rear wheel bearing has slight play (2.6.2)",
+                "type": "ADVISORY",
+                "dangerous": false
+                }
+                ]
+                },
+                {
+                "completedDate": "2018.05.20 11:28:34",
+                "testResult": "FAILED",
+                "odometerValue": "57318",
+                "odometerUnit": "mi",
+                "odometerResultType": "READ",
+                "motTestNumber": "741489560458",
+                "rfrAndComments":[
+                {
+                "text": "Nearside Parking brake efficiency below requirements (1.4.2 (a) (i))",
+                "type": "MAJOR",
+                "dangerous": false
+                },
+                {
+                "text": "Front brake disc excessively pitted (3.5.1h)",
+                "type": "DANGEROUS",
+                "dangerous": false
+                },
+                {
+                "text": "tyres wearing unevenly",
+                "type": "USER ENTERED",
+                "dangerous": true
+                }
+                ]
+                }
+                ]
+                },
+                {
+                "registration": "YY09DEF",
+                "make": "BMW",
+                "model": "Z4",
+                "firstUsedDate": "2009.01.25",
+                "fuelType": "Petrol",
+                "primaryColour": "Green",
+                "vehicleId": "3Fv916dPLGx=43PRaKa45e++",
+                "registrationDate": "2009.01.25",
+                "manufactureDate": "2009.01.25",
+                "engineSize": "1800",
+                "motTests":[
+                {
+                "completedDate": "2012.01.10 10:27:56",
+                "testResult": "PASSED",
+                "expiryDate": "2013.01.09",
+                "odometerValue": "12345",
+                "odometerUnit": "mi",
+                "odometerResultType": "READ",
+                "motTestNumber": "345655760009",
+                "rfrAndComments": []
+                }
+                ]
+                }
+                ]
+            </div>
+
+            <h2 class="heading-medium">Response codes</h2>
+
+            <p>A valid request should return a ‘200 - OK’ or a ‘404 - resource not found’ response code:</p>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Scenario</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>200 - OK</td>
+                    <td>Your request was serviced</td>
+                </tr>
+                <tr>
+                    <td>404 - resource not found</td>
+                    <td>Vehicle with the provided parameters was not found or its test records are not valid</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <p>Possible errors are:</p>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Scenario</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>400 – bad request</td>
+                    <td>Invalid data in the request. Check your URL and parameters</td>
+                </tr>
+                <tr>
+                    <td>403 – unauthorised</td>
+                    <td>The x-api-key is missing or invalid in the header</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <p>Possible errors are:</p>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Scenario</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>400 – bad request</td>
+                    <td>Invalid data in the request. Check your URL and parameters</td>
+                </tr>
+                <tr>
+                    <td>403 – unauthorised</td>
+                    <td>The x-api-key is missing or invalid in the header</td>
+                </tr>
+                <tr>
+                    <td>415 – unsupported media type</td>
+                    <td>The Content-Type is wrong in the header</td>
+                </tr>
+                <tr>
+                    <td>429 – too many requests</td>
+                    <td>You have exceeded your rate or quota</td>
+                </tr>
+                <tr>
+                    <td>500 – internal server error</td>
+                    <td>Please contact support and provide the request ID returned</td>
+                </tr>
+                <tr>
+                    <td>503 – service unavailable</td>
+                    <td>The service is not available</td>
+                </tr>
+                <tr>
+                    <td>504 – gateway timeout</td>
+                    <td>The service did not respond in the time limit</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h2 class="heading-medium">Change log</h2>
+
+            <div class="grid-row">
+                <div class="column-one-third">
+                    <p><strong>22 January 2019</strong></p>
+                </div>
+                <div class="column-two-thirds">
+                    <p>
+                        Accept header value changed into application/json+v6.
+                    </p>
+                    <p>
+                        Added a new endpoint that allows you to search using the 'vehicleId' field.
+                    </p>
+                    <p>
+                        Vehicle objects also show the 'vehicleId' field in the response for vehicles with an MOT test.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="grid-row">
+                <div class="column-third">
+                    <p><strong>11 December 2018</strong></p>
+                </div>
+                <div class="column-two-thirds">
+                    <p>
+                        Accept header value changed into application/json+v5.
+                    </p>
+                    <p>
+                        Vehicles have three new properties - if they are not available, they will not be included in the
+                        response:
+                    </p>
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>registrationDate</td>
+                            <td>The date the vehicle was registered</td>
+                        </tr>
+                        <tr>
+                            <td>manufactureDate</td>
+                            <td>The date the vehicle was manufactured</td>
+                        </tr>
+                        <tr>
+                            <td>engineSize</td>
+                            <td>The cylinder capacity of the engine in cubic centimetres</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p></p>
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="column-third">
+                    <p><strong>21 August 2018</strong></p>
+                </div>
+                <div class="column-two-thirds">
+                    <p>
+                        Accept header value changed into application/json+v4.
+                    </p>
+                    <p>
+                        The RFR property ‘type’ will return the specific defect severity ‘DANGEROUS or ‘MAJOR’ instead
+                        of generic type ‘FAIL’ for tests completed from the 20th May.
+                    </p>
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="column-third">
+                    <p><strong>30 January 2018</strong></p>
+                </div>
+                <div class="column-two-thirds">
+                    <p>
+                        Accept header value changed into application/json+v3.
+                    </p>
+                    <p>
+                        Property name &lsquo;motTestExpiryDate&rsquo; passed for vehicles without an MOT has been
+                        renamed to &lsquo;motTestDueDate&rsquo;.
+                    </p>
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="column-third">
+                    <p><strong>14 November 2017</strong></p>
+                </div>
+                <div class="column-two-thirds">
+                    <p>
+                        Accept header value changed into application/json+v2.
+                    </p>
+                    <p>
+                        New property &lsquo;odometerResultType&rsquo; added for each MOT item in the response; the value
+                        will be one of: &lsquo;READ&rsquo;, &lsquo;UNREADABLE&rsquo; or &lsquo;NO_ODOMETER&rsquo;.
+                    </p>
+                    <p>
+                        New property &lsquo;dangerous&rsquo; added for each reason for refusal item in the response; the
+                        value will be either true or false.
+                    </p>
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="column-third">
+                    <p><strong>23 March 2017</strong></p>
+                </div>
+                <div class="column-two-thirds">
+                    <p>First published.</p>
+                </div>
+            </div>
+
+            <h2 class="heading-medium">Support</h2>
+
+            <p>If you have any issues using MOT history API, complete <a href="https://www.smartsurvey.co.uk/s/MOT_History_TradeAPI_Access_and_Support/" target="_blank">
+                the MOT History Trade API request and support form</a>.
+            </p>
+        </div>
+    </div>
+</main>
+<!-- / #content -->
+</body>
+</html>
