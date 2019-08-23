@@ -377,7 +377,7 @@
                 <tbody>
                 <tr>
                     <td>400 – bad request</td>
-                    <td>Invalid data in the request. Check your URL and parameters</td>
+                    <td>Invalid data in the request. Check your URL and parameters. Ensure that if you have provided a date that it is less that 5 weeks before today</td>
                 </tr>
                 <tr>
                     <td>403 – unauthorised</td>
@@ -407,6 +407,18 @@
             </table>
 
             <h2 class="heading-medium">Change log</h2>
+
+            <div class="grid-row">
+                <div class="column-one-third">
+                    <p><strong>17 September 2019</strong></p>
+                </div>
+                <div class="column-two-thirds">
+                    <p>
+                        Restriction added on using date for api requests. Dates that are over 5 weeks before the current date will produce a 400 error.
+                    </p>
+                </div>
+
+            </div>
 
             <div class="grid-row">
                 <div class="column-one-third">
