@@ -31,6 +31,10 @@
     </p>
     <h1 class="heading-xlarge u-space-b15">MOT history API</h1>
 
+    <div class=" u-margin-top-50 " >
+    <p>For information on how to gain access and use the MOT history API for HGVs and PSVs, please see <a href="#HGV/PSV Operators Annual Test History API Service">below</a> </p>
+    </div>
+
     <div class="grid-row">
 
         <div class="column-two-thirds">
@@ -536,6 +540,147 @@
             <p>If you have any issues using MOT history API, complete <a href="https://www.smartsurvey.co.uk/s/MOT_History_TradeAPI_Access_and_Support/" target="_blank">
                 the MOT History Trade API request and support form</a>.
             </p>
+        </div>
+    </div>
+
+    <a name="HGV/PSV Operators Annual Test History API Service"></a>
+    <h1 class="heading-xlarge u-space-b15">HGV/PSV Operators Annual Test History API Service</h1>
+
+    <div class="grid-row">
+
+        <div class="column-two-thirds">
+
+            <h2 class="heading-medium">Introduction</h2>
+
+            <p>The HGV/PSV Operators Annual Test History API provides a mechanism for authorised third-party
+                organisations to access Annual Test History information for HGVs, PSVs and Trailers through an API. </p>
+
+            <h2 class="heading-medium">Apply for API access</h2>
+
+            <p><a href="https://www.smartsurvey.co.uk/s/MOT_History_TradeAPI_Access_and_Support/" target="_blank">
+                Complete an application form </a> giving details of your organisation and your intended use of the API. </p>
+
+            <p>
+                If your application is approved you will be given an API key that will let you access the MOT history data.
+            </p>
+
+            <h2 class="heading-medium">Getting started</h2>
+
+            <p>All Annual Test History API interfaces are implemented as restful APIs and accessed over https. In order
+                to access the API you will require an API Key that uniquely identifies the source of the request. API
+                Keys should be treated as sensitive information as throttling and quotas are managed at an API Key level.</p>
+
+            <p>Each request must have two mandatory fields in the header to enable you to access the data:</p>
+
+            <ul class="list-bullet u-space-b30">
+                <li>Content-type: application/json</li>
+                <li>x-api-key: &lt;your api key&gt;</li>
+            </ul>
+
+            <p>The first field ensures that the response type is in json format and the second field provides your API
+                key to identify the source of the request. You will not be able to access the API without providing a
+                valid API Key. </p>
+
+            <h2 class="heading-medium">Technical resources</h2>
+
+            <p>Technical documentation will be sent out with your API key, including instructions for how to use it.
+                The technical documentation will include the following:</p>
+
+
+            <ul class="list-bullet u-space-b30">
+                <li>the endpoint</li>
+                <li>curl command</li>
+                <li>example response</li>
+            </ul>
+
+
+            <h2 class="heading-medium">Response codes</h2>
+
+            <p>A valid request should return a ‘200 - OK’ or a ‘404 - resource not found’ response code:</p>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Scenario</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>200 - OK</td>
+                    <td>Your request was serviced</td>
+                </tr>
+                <tr>
+                    <td>404 - resource not found</td>
+                    <td>Vehicle with the provided parameters was not found or its test records are not valid</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class=" u-margin-top-20">
+            <p>Possible errors are:</p>
+            </div>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Scenario</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>400 – bad request</td>
+                    <td>Invalid data in the request. Check your URL and parameters</td>
+                </tr>
+                <tr>
+                    <td>403 – unauthorised</td>
+                    <td>The x-api-key is missing or invalid in the header</td>
+                </tr>
+                <tr>
+                    <td>415 – unsupported media type</td>
+                    <td>The Content-Type is wrong in the header</td>
+                </tr>
+                <tr>
+                    <td>429 – too many requests</td>
+                    <td>You have exceeded your rate or quota</td>
+                </tr>
+                <tr>
+                    <td>500 – internal server error</td>
+                    <td>Please contact support and provide the request ID returned</td>
+                </tr>
+                <tr>
+                    <td>503 – service unavailable</td>
+                    <td>The service is not available</td>
+                </tr>
+                <tr>
+                    <td>504 – gateway timeout</td>
+                    <td>The service did not respond in the time limit</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h2 class="heading-medium">Support</h2>
+
+            <p>If any issues are experienced using MOT History API service, users are requested to use the following
+                 <a href="https://www.smartsurvey.co.uk/s/HV_Operators_Annual_History_API_Access_and_Support/" target="_blank">
+                    link </a>and select support.
+            </p>
+
+            <p>The minimum dataset needs to be provided:</p>
+
+            <ul class="list-bullet u-space-b30">
+                <li>Name of company</li>
+                <li>Name of individual reporting issue.</li>
+                <li>Contact E-mail, Telephone,</li>
+                <li>Preferred method of contact</li>
+                <li>Description of issue.</li>
+                <li>Detailed description of issue.</li>
+            </ul>
+
+            <p>This will generate a ticket in the DVSA Toolset. A member of the DVSA /BJSS support team will pick this
+                up and deal with accordingly.</p>
+            <p>All issues will be logged as a Priority 3 incident.</p>
         </div>
     </div>
 </main>
